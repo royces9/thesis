@@ -1,0 +1,471 @@
+\def \xoneavg{\totalcopy{x1} - \avgcopynum{x1x2} - \avgcopynum{x1y2}}
+\def \xonecopy{\totalcopy{x1} - \copynum{x1x2} - \copynum{x1y2}}
+\def \xtwoavg{\totalcopy{x2} - \avgcopynum{x1x2}}
+\def \xtwocopy{\totalcopy{x2} - \copynum{x1x2}}
+\def \ytwoavg{\totalcopy{y2} - \avgcopynum{x1y2}}
+\def \ytwocopy{\totalcopy{y2} - \copynum{x1y2}}
+
+%all of the figure label copy numbers are actual copy numbers
+%not copy/volume counts or something weird like that
+
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+\section*{CB3 Motif}
+\addcontentsline{toc}{chapter}{CB3 Motif}
+%
+\subsection*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+The CB3 system is a simple three element system with a single protein that can bind with one of two\
+potential targets to make either one on-target, or one off-target complex.
+%
+This leads to a specificity, defined again below:
+%
+\bigskip
+\begin{equation*}
+  S_x = \frac{\copynum{x1x2}}{\copynum{x1y2}} = \frac{\conc{x1x2}}{\conc{x1y2}}
+\end{equation*}
+%
+
+The specificity is a measure of how controlled the protein \ce{x1} distributes between\
+on and off-target complexes, with higher values corresponding to more of the on-target\
+complex compared to off-target complex, and vice versa for lower values of specificity.
+%
+
+\subsection*{Deterministic Model}
+\addcontentsline{toc}{section}{Deterministic Model}
+Assume the system is closed and the system starts with zero copies of the complexes (i.e., all molecular species are initialized as monomers). Define the initial copy number of monomers $x_1$ as $N_{x10}$ (and similar for $x_2$, $y_2$).\
+Then the total number of all molecular species in the system containing $x_1$ (in monomers or dimers) will always equal $N_{x10}$ at anytime $t$:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    & \totalcopy{x1} = \copynum{x1} + \copynum{x1x2} + \copynum{x1y2} \\
+    & \totalcopy{x2} = \copynum{x2} + \copynum{x1x2} \\
+    & \totalcopy{y2} = \copynum{y2} + \copynum{x1y2}
+  \end{split}
+  \label{totals_copy}
+\end{equation}
+%
+
+if Eq. \ref{totals_copy} is rearranged for the protein at anytime, we get:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    & \copynum{x1} = \totalcopy{x1} + \copynum{x1x2} +\copynum{x1y2}\\
+    & \copynum{x2} = \totalcopy{x2} + \copynum{x1x2} \\
+    & \copynum{y2} = \totalcopy{y2} + \copynum{x1y2}
+  \end{split}
+  \label{totals_copy_rearrange}
+\end{equation}
+%
+``
+Dividing Eq. \ref{totals_copy_rearrange} by the volume gives:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    & \conc{x1} = {\conc{x1}}_{0} - \conc{x1x2} - \conc{x1y2} \\
+    & \conc{x2} = {\conc{x2}}_{0} - \conc{x1x2} \\
+    & \conc{y2} = {\conc{y2}}_{0} - \conc{x1y2} \\
+  \end{split}
+  \label{totals_conc}
+\end{equation}
+%
+
+Substituting Eq. \ref{totals_conc} into the the last two equations in Eq. \ref{cb3_de}\
+reduces the equation's from all fives species to just the two complexes:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    & \frac{d\conc{x1x2}}{dt} =\
+    k_{on}({\conc{x1}}_0-\conc{x1x2}-\conc{x1y2})({\conc{x2}}_0-\conc{x1x2}) -\
+    k_{off_{xx}}\conc{x1x2}\\
+    & \frac{d\conc{x1y2}}{dt} =\
+    k_{on}({\conc{x1}}_0-\conc{x1x2}-\conc{x1y2})({\conc{y2}}_0-\conc{x1y2}) -\
+    k_{off_{xy}}\conc{x1y2}
+    \label{cb3_non_steady}
+  \end{split}
+\end{equation}
+%
+
+At steady state $\frac{d\conc{a}}{dt} = 0$,
+which gives Eq. \ref{ss_cb3}.
+%
+\bigskip
+\begin{equation}
+  \begin{split}
+    \frac{k_{off_{xx}}}{k_{on}} =\
+    \frac{({\conc{x1}}_0-\conc{x1x2}-\conc{x1y2})({\conc{x2}}_0-\conc{x1x2})}{\conc{x1x2}}\\
+    \frac{k_{off_{xy}}}{k_{on}} =\
+    \frac{({\conc{x1}}_0-\conc{x1x2}-\conc{x1y2})({\conc{y2}}_0-\conc{x1y2})}{\conc{x1y2}}
+    \label{ss_cb3}
+  \end{split}
+\end{equation}
+%
+
+\subsection*{Stochastic Model}
+\addcontentsline{toc}{section}{Stochastic Model}
+%
+In a closed chemical reaction system following detailed balance,\
+it can be shown that the distribution of any given species\
+in that system follows a Poisson distribution \cite{gardiner}.
+%
+For a reversible reaction $A$, we define $P_a$ as the stoichiometric\
+coefficients of the left side of the reaction for specie $a$, and $Q_b$ as\
+the stoichiometric coefficient of the right side of the reaction\
+for specie $b$.
+%
+We also denote k$^+_A$ as the stochastic rate constant for the forward reaction,\
+and k$^-_A$ as the stochastic rate constant for the backward reaction.
+%
+With these definitions, the following is shown to be true \cite{gardiner}:
+%
+\smallskip
+\begin{equation}
+  k^+_A \prod_a{\avgcopynum{a}^{P_a}}  = k^-_A \prod_b{\avgcopynum{b}^{Q_b}}
+  \label{matched_constants}
+\end{equation}
+%
+
+%With $\avgcopynum{a}$ and $\avgcopynum{b}$ denoting average copy number.
+For our system, Eq. \ref{matched_constants} can be simplified to the following.
+%
+\smallskip
+\begin{equation}
+  \frac {k^-_{xx}} {k^+} = \frac {\avgcopynum{x1} * \avgcopynum{x2}}{\avgcopynum{x1x2}}\\
+  \frac {k^-_{xy}} {k^+} = \frac {\avgcopynum{x1} * \avgcopynum{y2}}{\avgcopynum{x1y2}}
+\end{equation}
+%
+
+Applying Eq. \ref{totals_copy_rearrange}, \ref{conversion} and \ref{conversion_rate},\
+we find the result is exactly the deterministic steady state expression, Eq. \ref{ss_cb3}.
+%
+%% When the stochastic rate constants and copy number averages are converted\
+%% from a copy number basis to a concentration basis, the result\
+%% is exactly the deterministic steady state expression, Eq. \ref{ss_cb3}.
+%
+The average copy number in a stochastic system will follow mass action\
+kinetics at steady state.
+%
+
+Using the same assumptions, the probability of being in a state $N_A$, for all species $A$,\
+is given by a multivariate Poisson (Eq. \ref{total_probability}) \cite{gardiner}.
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    P(\copynum{x1}, \copynum{x2}, \copynum{y2}, \copynum{x1x2}, \copynum{x1y2}) = &
+    \poissonexpr{\ce{x1}}
+    \poissonexpr{\ce{x2}}
+    \poissonexpr{\ce{y2}} \\
+    & \poissonexpr{\ce{x1x2}}
+    \poissonexpr{\ce{x1y2}}
+    \label{total_probability}
+  \end{split}
+\end{equation}
+%
+
+Substituting Eq. \ref{totals_copy_rearrange} into Eq. \ref{total_probability}:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    &P(\copynum{x1x2}, \copynum{x1y2}) =\\
+    & \poissmore{{\xoneavg}}{{\xonecopy}}\\
+    & \poissmore{{\xtwoavg}}{{\xtwocopy}}\\
+    & \poissmore{{\ytwoavg}}{{\ytwocopy}}\\
+    &\poissonexpr{\ce{x1x2}} \poissonexpr{\ce{x1y2}}
+    \label{simplified_probability}
+  \end{split}
+\end{equation}
+%
+
+turns the 5-dimensional multivariate Poisson into a bivariate distribution,\
+only dependent on the amounts of each of the two complexes.
+%
+
+For larger system sizes, such as if the volume is increased, the Poisson distribution\
+becomes increasingly well approximated by a continuous multivariate Gaussian distribution\
+where the mean is equal to the variance \ref{cb3_gaussian}.
+%
+
+\smallskip
+\begin{equation}
+  \begin{split}
+    &P(\copynum{x1x2}, \copynum{x1y2}) =\\
+    & \gaussmore{{\xoneavg}}{{\xonecopy}}\\
+    & \gaussmore{{\xtwoavg}}{{\xtwocopy}}\\
+    & \gaussmore{{\ytwoavg}}{{\ytwocopy}}\\
+    & \gaussexpr{\ce{x1x2}} \gaussexpr{\ce{x1y2}}
+    \label{cb3_gaussian}
+  \end{split}
+\end{equation}
+
+
+\subsection*{Results}
+\addcontentsline{toc}{section}{Results}
+
+\subsubsection*{The deterministic specificity is a monotonic function of protein concentration}
+%\subsubsection*{The deterministic specificity is a monotonic function of \ce{x1} copy number}
+%
+From Eq. \ref{ss_cb3}, the steady state concentrations of the complexes can be solved numerically\
+as a function of ${\conc{x1}}_0$, which can be put into Eq. \ref{sx_def} to obtain the specificity.
+%
+Given different initial concentrations of \ce{x2} and \ce{y2}, the specificity\
+was plotted as a function of the concentration of \ce{x1}.
+%
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/deterministic_cb3/deterministic_cb3_conc.png}
+  \caption{Plot of the deterministic specificity as a function of ${\conc{x1}}_0$\
+    with various different parameters, and V = 10}
+  \label{deterministic_cb3}
+\end{figure}
+%%%probably fix this plot a bit, make the legend labels and x-label more correct
+
+\subsubsection*{The distribution of the stochastic specificity approaches the deterministic mean as system size is increased}
+%\subsubsection*{The distribution of the specificity is more continuous as system size increases}
+Fig. \ref{landscape_histo} shows how the probability landscape for the two complexes\
+compares to the specificity distribution for different system volumes.
+%
+Concentration is kept constant so copy numbers are increased with the volume.
+%
+For smaller system sizes, the distribution of the specificity can be seen\
+to be not well-behaved.
+%
+As the volume is increased, the distribution qualitatively becomes more Gaussian, and approaches\
+the deterministic solution.
+%
+This can be seen directly in the probability landscapes, with a discontinuous\
+specificity distribution resulting in very discrete probability states, and\
+smoother distributions resulting in small distributions centered around the\
+deterministic solution in the probability landscape.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/landscape_to_hist/landscape_to_hist_v2.png}
+  \caption{Comparison of the probability landscape to the specificity distribution as volume is changed,\
+    from top to bottom, ${\copynum{x1}}_0 = {\copynum{x2}}_0 = {\copynum{y2}}_0 = 10 * V$, V = 1, 10, 100}
+  \label{landscape_histo}
+\end{figure}
+%%%forgot to get rid of the extra x-labels on the landscape
+
+%
+%We are interested in the parameter set where the distribution is not so ordered\
+%that the behaviour of the distribution is not interesting anymore, but is not so\
+%chaotic that the distribution is difficult to analyze.
+%
+
+
+\subsubsection*{The Gaussian approximation of the CB3's specificity and distribution is qualitatively similar to the simulation}
+%\subsubsection*{The Gaussian approximation of the system is a good approximation to the behaviour of the simulation}
+The probability landscapes of the CB3 motif are consistent with simulation\
+when modeled with the chemical master equation or with a Gaussian approximation.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/comparison_all_same/add_one_is_ok_fixed.png}
+  \caption{Comparison of the steady-state probability distribution for the discrete stochastic CB3 model,\
+    computed by three different methods.\
+    LEFT: numerically computed solution to the Chemical Master Equation (see Methods Eqn. 11).
+    CENTER: numerically computed solution using a multivariate Gaussian approximation to the Chemical Master Equation.
+    RIGHT: Long simulation using SSA.
+    ${\copynum{x2}}_0 = {\copynum{y2}}_0 = 100$, V = 10}
+  %\caption{Comparison of the probability landscapes of different methods,\
+  \label{landscapes}
+\end{figure}
+%
+
+In Fig. \ref{ssd_figure}, the log of the sum of squared differences of the probability\
+landscape of the Gaussian distribution to the Poisson distribution was calculated\
+as a function of volume.
+%
+As volume is increased, the concentration is kept constant, so the number of\
+copies is increased accordingly.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/ssd/ssd_log.png}
+  \caption{Sum of squared differences of the Poisson and Gaussian distribution,\
+    ${\copynum{x1}}_0 = {\copynum{x2}}_0 = {\copynum{y2}}_0 = 10 * V$}
+  \label{ssd_figure}
+\end{figure}
+%
+
+This shows, the expected behavior: as system sizes become larger, the Poisson distribution can be better\
+approximated by a Gaussian distribution.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/marsaglia_approx_ok/marsaglia_good.png}
+  \caption{Marsaglia's approximation to the specificity compared to the simulation data,\
+    from left to right, ${\copynum{x2}}_0 = {\copynum{y2}}_0 = 100, 1000$, V = 10, 100}
+  \label{marsaglia_good}
+\end{figure}
+
+With the Gaussian distribution being a good approximation for the distribution\
+of each of the complexes, the distribution of the specificity can be approximated\
+by Marsaglia's ratio of normally distributed variables \cite{marsaglia}.
+%
+A comparison of Marsaglia's approximation to the specificity to the specificity\
+obtained from simulation is in Fig. \ref{marsaglia_good}.
+%
+
+%% In Fig. \ref{cb3_spec_error}, the mean, \perc{10}, and \perc{90} percentile are\
+%% plotted as functions of \ce{x1} copy number.
+%% %
+
+%% \begin{figure}[H]
+%%   \includegraphics[width=\textwidth]{figures/cb3/spec_error/error_bar_spec_cb3_fixedscale.png}
+%%   \caption{Marsaglia's normal approximation with an error bar of the $10^{th}$ and $90^{th}$ percentile,\
+%%     ${\copynum{x2}}_0 = {\copynum{y2}}_0 = 100$, V = 10}
+%%   \label{cb3_spec_error}
+%% \end{figure}
+
+%% Fig. \ref{cb3_spec_error} can be compared to the simulation data plotted\
+%% in Fig. \ref{cb3_raw_spec}.
+
+
+\subsubsection*{The distribution of the stochastic specificity can be approximated as the ratio of two normal random variables}
+%\subsubsection*{Changing the denominator to one when it is zero is a safe fix to the specificity}
+Because copy numbers are discrete numbers ranging from zero to some maximum value, there can be\
+discontinuities in the specificity when the denominator is zero.
+%
+In simulation data, this is seen at lower \ce{x1} copy numbers\
+in Fig. \ref{cb3_raw_spec}, at approximately 20 copy number for the \perc{90}\
+percentile, and approximately 10 copy number for the \perc{10} percentile.
+%
+By changing zero denominators to one, the specificity can always be defined.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/raw_spec/raw_spec2.png}
+  \caption{Specificity plot without fixing for infinite values\
+    ${\copynum{x2}}_0 = {\copynum{y2}}_0 = 100$, V = 10}
+  \label{cb3_raw_spec}
+\end{figure}
+
+The data from Fig. \ref{cb3_raw_spec} is plotted again, but with zero denominators\
+changed to one in Fig. \ref{add_one}, the deterministic specificity and Marsaglia's\
+normal approximation are also plotted for comparison.
+%
+The median of the simulation data and Marsaglia's approximation match with the\
+deterministic solution for higher copy numbers of \ce{x1}.
+%
+From approximately 50 copy number and lower, both the simulation median and\
+Marsaglia median begin to diverge from the deterministic solution.
+%
+Each of the percentiles (\perc{10}, \perc{50}, \perc{90}) from the simulation match\
+Marsaglia's approximation for a wide range of $\copynum{x1}$, and the \perc{10} percentile\
+in particular, is very close.
+%
+%Despite this, changing the denominator has little effect on the probability distribution for\
+%systems of large enough size, but, when copy numbers are small enough, the specificty\
+%will have enough deviation to be unreliable.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/add_one_is_ok/add_one_spec_ok_v2.png}
+  \caption{Comparison between the Gaussian approximation and simulation data with the\
+    addition of one to the denominator when it is zero,\
+  ${\copynum{x2}}_0 = {\copynum{y2}}_0 = 100$, V = 10}
+  \label{add_one}
+\end{figure}
+%%%maybe i should try not to overload this figure with too much
+
+%%work on this part?
+
+%Because the general trend for the normal approximation to the specificity\
+%and the altered simulation data are the same, we can continue with\
+%changing the zero denominators for the simulation data.
+%
+%The only caveat is that care must be taken when looking at data for\
+%small copy number regimes, as this area starts to have too many\
+%discontinuities to ignore.
+%
+
+\subsubsection*{Fluctuations in stochastic specificity at steady-state become significant at low protein copy number}
+%\subsubsection*{The median specificity and the width of the distribution are correlated}
+For a variety of parameter sets (Fig. \ref{cb3_multiple_spec}), the general behaviour\
+of the specificity as a function of the initial copy number of \ce{x1} is the same.
+%
+The median of the specificity is consistent with the deterministic solution of the\
+specificity except for very low $\totalcopy{x1}$, where the effects of having zero copy\
+numbers of off-target complex begin to have a large effect on the stochastic specificity.
+%
+The deterministic solution is a strictly decreasing function of $\totalcopy{x1}$,\
+but the median of the solution is a non-monotonic function of $\totalcopy{x1}$.
+%
+At lower \ce{x1} copy number, the median specificity is lower than the deterministic solution,\
+and increases as $\totalcopy{x1}$ increases to match the deterministic solution.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/spec_plots/spec_mult_v3.png}
+  \caption{Specificity plotted against \ce{x1} with different parameter sets, and $V=10$}
+  \label{cb3_multiple_spec}
+\end{figure}
+
+
+The width of the distribution follows roughly the same trend as the median,\
+at higher \ce{x1} copy number, the distribution converges to the deterministic solution,\
+and the distribution increases with lower \ce{x1}.
+%
+When off-target complexes start becoming rare, i.e. the number of off-target complexes is zero,\
+the \perc{10} percentile, \perc{90} percentile,\
+and median of the specificity become limited by the total amount of \ce{x1}.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/fano_factor/cb3_fano2.png}
+  %\includegraphics[width=\textwidth]{figures/cb3/fano_factor/fano_and_prod.png}
+  \caption{Fano factor of the complexes plotted against \ce{x1} copy number,\
+    ${\copynum{x2}}_0 = {\copynum{y2}}_0 = 100$, V = 10}
+  \label{cb3_fano}
+\end{figure}
+
+The Fano factor of the complexes, defined as $\sigma^2 / \mu$,\
+was plotted against copy number of \ce{x1} in Fig. \ref{cb3_fano}.
+%
+The noise in the complexes contributes to the specificity's\
+distribution.
+%
+Looking at the distributions of the individual complexes also gives\
+consistent results, albeit for a different reason.
+%
+
+\subsubsection*{Stochastic specificity shows non-monotonic dependence on protein copy number}
+%\subsubsection*{The specificity is a function of the complexes values and distribution}
+%\subsubsection*{The behaviour of the specificity is directly linked to the complexes value and distribution}
+The behaviour of the specificity can be explained by looking at the\
+individual complexes.
+%
+Because the denominator (\ce{x1y2}) is smaller than the numerator (\ce{x1x2}),\
+its deviations have a larger effect on the value of the specificity than the numerator\
+for \ce{x1} copy number from 0 to {~}150.
+%
+For larger \ce{x1}, the amount of complexes is both large and roughly the same,
+and so, small changes in the amount of complex have a diminishing effect on the\
+distribution of the specificity.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/cb3/complex_error/cb3_complex.png}
+  \caption{Means of complexes of CB3 with an error bar of $\pm \sigma$,\
+    ${\copynum{x2}}_0 = {\copynum{y2}}_0 = 100$, V = 10}
+  \label{cb3_complex_error}
+\end{figure}
+
+Assuming zero denominators are fixed, the maximum possible value of the\
+specificity is $min(\totalcopy{x1}, \totalcopy{x2})$.
+%
+At very low $\copynum{x1}$, it becomes the case that the amount\
+of \ce{x1} becomes limiting, the value of the specificity can not\
+exceed $\totalcopy{x1}$, which results in the line seen at lower\
+copy numbers of \ce{x1} in Fig. \ref{add_one} and \ref{cb3_multiple_spec}.
+%
+
+
+%%% Local Variables: ***
+%%% mode: latex ***
+%%% TeX-master: "thesis.tex" ***
+%%% End: ***

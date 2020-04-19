@@ -1,0 +1,273 @@
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\def \xoneavg{\totalcopy{x1} - \avgcopynum{x1x2} - \avgcopynum{x1y2}}
+\def \xonecopy{\totalcopy{x1} - \copynum{x1x2} - \copynum{x1y2}}
+\def \xtwoavg{\totalcopy{x2} - \avgcopynum{x1x2} - \avgcopynum{y1x2}}
+\def \xtwocopy{\totalcopy{x2} - \copynum{x1x2} - \copynum{y1x2}}
+\def \yoneavg{\totalcopy{y1} - \avgcopynum{y1y2} - \avgcopynum{y1x2}}
+\def \yonecopy{\totalcopy{y1} - \copynum{y1y2} - \copynum{y1x2}}
+\def \ytwoavg{\totalcopy{y2} - \avgcopynum{y1y2} - \avgcopynum{x1y2}}
+\def \ytwocopy{\totalcopy{y2} - \copynum{y1y2} - \copynum{x1y2}}
+
+\section*{Bifan Motif}
+\addcontentsline{toc}{chapter}{Bifan Motif}
+
+\subsection*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+%
+The bifan is a simple symmetrical extension of the CB3 motif.
+%
+By adding another protein, \ce{y1}, that can compete with \ce{x1}, there are now two simultaneous\
+pathways for the network to go through.
+%
+There are now two on-target complexes, \ce{x1x2} and \ce{y1y2}; and two\
+off-target complexes, \ce{x1y2} and \ce{y1x2}.
+%
+Each specificity measures the selectivity for each of the single proteins to be bound,\
+in one complex over another and are defined again below:
+%
+\bigskip
+\begin{equation}
+  \begin{split}
+    S_{\ce{x1}} = \frac{\copynum{x1x2}}{\copynum{x1y2}} = \frac{\conc{x1x2}}{\conc{x1y2}}\\
+    S_{\ce{x2}} = \frac{\copynum{x1x2}}{\copynum{y1x2}} = \frac{\conc{x1x2}}{\conc{y1x2}}\\
+    S_{\ce{y1}} = \frac{\copynum{y1y2}}{\copynum{y1x2}} = \frac{\conc{y1y2}}{\conc{y1x2}}\\
+    S_{\ce{y2}} = \frac{\copynum{y1y2}}{\copynum{x1y2}} = \frac{\conc{y1y2}}{\conc{x1y2}}
+  \end{split}
+  \bigskip
+\end{equation}
+%
+
+The bifan motif is known to be overrepresented in network motifs \cite{functionsofbifan, biocircuits}, and is also\
+extendable to larger networks with five or more interacting proteins.
+%
+
+\subsection*{Deterministic Model}
+\addcontentsline{toc}{section}{Deterministic Model}
+%
+Using a similar treatment to the CB3 motif, the following expressions for steady\
+state can be found for the bifan motif:
+%
+\bigskip
+\begin{equation}
+  \begin{split}
+    & \frac{k_{off_{xx}}}{k_{on}} =\
+    \frac{({\conc{x1}}_0 - \conc{x1x2} - \conc{x1y2})({\conc{x2}}_0 - \conc{x1x2} - \conc{y1x2})}{\conc{x1x2}}\\
+    & \frac{k_{off_{xy}}}{k_{on}} =\
+    \frac{({\conc{x1}}_0 - \conc{x1x2} - \conc{x1y2})({\conc{y2}}_0 - \conc{y1y2} - \conc{x1y2})}{\conc{x1y2}}\\
+    & \frac{k_{off_{yy}}}{k_{on}} =\
+    \frac{({\conc{y1}}_0 - \conc{y1y2} - \conc{y1x2})({\conc{y2}}_0 - \conc{y1y2} - \conc{x1y2})}{\conc{y1y2}}\\
+    & \frac{k_{off_{yx}}}{k_{on}} =\
+    \frac{({\conc{y1}}_0 - \conc{y1y2} - \conc{y1x2})({\conc{x2}}_0 - \conc{x1x2} - \conc{y1x2})}{\conc{y1x2}}\\
+  \end{split}
+  \label{ss_bifan}
+\end{equation}  
+%
+
+
+\subsection*{Stochastic Model}
+\addcontentsline{toc}{section}{Stochastic Model}
+%
+Much like the CB3 motif, probabilities for each of the species of the\
+motif can be defined as follows with respect to the complexes:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    & P_{\ce{x1}} = \poissmore{{\xoneavg}}{{\xonecopy}}\\
+    & P_{\ce{x2}} = \poissmore{{\xtwoavg}}{{\xtwocopy}}\\
+    & P_{\ce{y1}} = \poissmore{{\yoneavg}}{{\yonecopy}}\\
+    & P_{\ce{y2}} = \poissmore{{\ytwoavg}}{{\ytwocopy}}\\
+    & P_{\ce{x1x2}} = \poissonexpr{\ce{x1x2}}\\
+    & P_{\ce{x1y2}} = \poissonexpr{\ce{x1y2}}\\
+    & P_{\ce{y1y2}} = \poissonexpr{\ce{y1y2}}\\
+    & P_{\ce{y1x2}} = \poissonexpr{\ce{y1x2}}
+  \end{split}
+  \label{bifan_individual_prob}
+\end{equation}
+%
+
+Replacing the probabilities from Eq. \ref{bifan_individual_prob}\
+into Eq. \ref{bifan_total_prob}, the 8-dimensional probability is\
+reduced to a 4-dimensional probability dependent only on\
+the complexes and the initial starting amount of lone proteins.
+%
+\bigskip
+\begin{equation}
+  P(\copynum{x1x2}, \copynum{x1y2}, \copynum{y1y2}, \copynum{y1x2}) = \
+  P_{\ce{x1}} *P_{\ce{x2}} *P_{\ce{y1}} *P_{\ce{y2}}\
+  *P_{\ce{x1x2}} *P_{\ce{x1y2}} *P_{\ce{y1y2}} *P_{\ce{y1x2}}
+  \label{bifan_total_prob}
+  \bigskip
+\end{equation}
+%
+
+Because of the factorial dependence in the expression for the Poisson\
+distribution, the calculation for the distribution becomes very taxing\
+as the system size is increased, for similar reasons, the chemical\
+master equation also becomes cumbersome to use.
+%
+But the Poisson can be assumed to be approximated by a Gaussian distribution,\
+for large systems, then the specificity can be approximated using\
+Marsaglia's approximation.
+%
+
+However, Marsaglia's approximation to the specificity can not be applied\
+to the bifan motif because finding the standard deviation of the system\
+transformed to two variables proves to be difficult.
+%
+Because Marsaglia's approximation is unfit for the bifan motif\
+we will use simulation data to study the specificity.
+%
+And like in the CB3 motif, we will change any of the zero denominators\
+to one, to avoid any discontinuities.
+
+
+\subsection*{Results}
+\addcontentsline{toc}{section}{Results}
+
+\subsubsection*{The deterministic specificity's are monotonic functions of protein concentration}
+%\subsubsection*{The deterministic solution of the specificity for the bifan motif can be calcuated numerically}
+From Eq. \ref{ss_bifan}, the deterministic specificity can be solved as a\
+function of $\copynum{x1}$, and is plotted in Fig. \ref{deterministic_bifan}.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/bifan/deterministic/deterministic_bifan_conc.png}
+  \caption{Plot of each of the four specificities of bifan as a function of ${\conc{x1}}_0$,
+    ${\conc{x2}}_0 = {\conc{y1}}_0 = {\conc{y2}}_0 = 0.1 \mu M$, V = 1}
+  \label{deterministic_bifan}
+\end{figure}
+
+Both \spec{x1} and \spec{y2} behave qualitatively similarly to the CB3 specificity, and are\
+decreasing functions of $\totalcopy{x1}$.
+%
+\spec{x2} and \spec{y1} both appear to grow without bound in the deterministic model, and are\
+increasing functions of $\totalcopy{x1}$.
+
+
+\subsubsection*{Changing zero denominators to one for the bifan motif gives results consistent with the raw data}
+%
+The bifan also runs into issues with the denominator becoming infinite,\
+and like the CB3 motif, any time the denominator is zero, we change the zero\
+denominator to one to make the calculations tractable.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/bifan/raw_plot/raw_plot.png}
+  \caption{Plot of the simulation specificities against $\copynum{x1}$,\
+    $\totalcopy{x2} = \totalcopy{y1} = \totalcopy{y2} = 100$, V = 1}
+  \label{bifan_raw_plot}
+\end{figure}
+
+Without changing the denominators, the behaviour of the specificity in\
+simulation is as seen in Fig. \ref{bifan_raw_plot}.
+%
+When the zero denominators are changed to one, we obtain Fig. \ref{bifan_fixed_plot}.
+%The mean with an error bar of $\pm \sigma$ is plotted in Fig. \ref{bifan_fixed_plot}.
+%
+When comparing Fig. \ref{bifan_fixed_plot} to Fig. \ref{bifan_raw_plot},\
+the general behaviour of the \perc{10}, \perc{90}, and median are the same.
+%
+Because the general behaviour is the same, for the rest of the analysis,\
+the deviation to the denominator will be added much like in the CB3 motif.
+%
+It is important to note that changing the denominator does have a\
+non-negligible effect on the specificity, for values\
+of $\copynum{x1}$ at very low and high copy numbers.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/bifan/specificity/spec_simulation_fixed.png}
+  \caption{Plot of the simulation specificities with zero denominators changed to one\
+    against $\copynum{x1}$,\
+    $\totalcopy{x2} = \totalcopy{y1} = \totalcopy{y2} = 100$, V = 1}
+  \label{bifan_fixed_plot}
+\end{figure}
+%
+
+%\subsubsection*{The median specificity and the width of the distribution are correlated}
+%\subsubsection*{The specificity exhibits similar behaviour to the CB3 motif's specificity}
+Like the CB3 motif, the distribution of the specificity widens with the mean.
+%
+Furthermore, the general behaviour of \spec{x1} and \spec{y2} are both similar\
+to the behaviour of CB3 motif specificity, such as being a decreasing\
+function of $\totalcopy{x1}$.
+%
+However, only \spec{x1} displays non-monotonic behaviour\
+at very low $\totalcopy{x1}$.
+%
+\spec{x2} and \spec{y1}, in contrast to the other two specificities,\
+are both increasing functions of $\totalcopy{x1}$.
+%
+Also similar to the CB3 specificity, the width of the\
+distribution grows as the mean of the specificity increases.
+%
+
+
+%% \begin{figure}[H]
+%%   \includegraphics[width=\textwidth]{figures/bifan/specificity/spec_blue_differentQ.png}
+%%   \caption{Means of specificities of bifan with an error bar of $\pm \sigma$,\
+%%     $\totalcopy{x2} = \totalcopy{y1} = \totalcopy{y2} = 100$, V = 1}
+%%   \label{bifan_mean_sigma}
+%% \end{figure}
+
+
+\subsubsection*{The specificity is a function of the complex copy numbers}
+Similarly to the CB3 motif, the behaviour of the specifities can be\
+explained by looking at the individual complexes.
+%
+The wide distributions of \spec{x2} and \spec{y1} are due to the\
+low amount of \ce{y1x2}, the denominator, compared to the respective\
+on-target complex, the numerator.
+%
+Likewise, for \spec{x1} and \spec{y2}, the amount of \ce{x1y2}\
+increases as a function of $\totalcopy{x1}$.
+%
+The behaviour of the complexes themselves also garner interest.
+%
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/bifan/complex/complex_error.png}
+  \caption{Means of complexes of bifan with an error bar of $\pm \sigma$,\
+    $\totalcopy{x2} = \totalcopy{y1} = \totalcopy{y2} = 100$, V = 1}
+  \label{bifan_complex}
+\end{figure}
+
+Except for \ce{y1y2}, each of the complexes is monotonic with respect\
+to $\totalcopy{x1}$, and each complex crosses another at 100 copy numbers of\
+\ce{x1}.
+%
+The crossing at 100 copy number is significant because it is the point\
+where the minimum valued complex is maximized, it is also\
+where the initial conditions of the system are all symmetrical.
+%
+
+%think of a better title
+\subsubsection*{The minimum noise in the system reaches a maximum at the same point as the mean of the specificities}
+The Fano factor, defined as $\sigma ^2 / \mu$, of the simulation data was\
+plotted as a function of $\totalcopy{x1}$, (Fig. \ref{bifan_fano}).
+%
+In addition to the minimum valued mean being maximized at this point, the minimum\
+valued Fano factor is also maximized at the same point.
+%
+Which is to say, this point is where the distributions of the complexes\
+collectively is the largest compared to the mean.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{figures/bifan/fano/fano.png}
+  \caption{Plot of the Fano factor vs. $\copynum{x1}$,\
+    $\totalcopy{x2} = \totalcopy{y1} = \totalcopy{y2}$ = 100, V = 1}
+  \label{bifan_fano}
+\end{figure}
+
+The product of the Fano factors for the complexes also reaches\
+a maximum at the same point, which reiterates that the noise is maximized\
+when the system is in symmetry.
+%
+
+
+%%% Local Variables: ***
+%%% mode: latex ***
+%%% TeX-master: "thesis.tex" ***
+%%% End: ***

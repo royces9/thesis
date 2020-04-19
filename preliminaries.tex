@@ -1,0 +1,133 @@
+\thesistitle{Specificity in Stochastic Protein-Protein Interaction Networks}
+
+%"Dissertation" for PhD, "Thesis" for master's
+\documenttitle{Thesis}
+
+\degreename{Master of Science}
+
+% Use the wording given in the official list of degrees awarded by UCI:
+% http://www.rgs.uci.edu/grad/academic/degrees_offered.htm
+\degreefield{Chemical and Biomolecular Engineering}
+
+% Your name as it appears on official UCI records.
+\authorname{Royce Roland Sato}
+
+% Use the full name of each committee member.
+\committeechair{Elizabeth L. Read}
+\othercommitteemembers
+    {
+      Professor Lee Bardwell\\
+      Professor Frank Shi
+}
+
+\degreeyear{2019}
+
+\copyrightdeclaration
+{
+  {\copyright} {\Degreeyear} \Authorname
+}
+
+% If you have previously published parts of your manuscript, you must list the
+% copyright holders; see Section 3.2 of the UCI Thesis and Dissertation Manual.
+% Otherwise, this section may be omitted.
+% \prepublishedcopyrightdeclaration
+% {
+% 	Chapter 4 {\copyright} 2003 Springer-Verlag \\
+% 	Portion of Chapter 5 {\copyright} 1999 John Wiley \& Sons, Inc. \\
+% 	All other materials {\copyright} {\Degreeyear} \Authorname
+% }
+
+% The dedication page is optional
+% (comment out to exclude).
+
+\acknowledgments {
+  First and foremost, I would like to thank my late\
+  grandfather for supporting me throughout both\
+  my undergraduate and graduate education. Thank you.
+  %
+
+  Thank you to Professor Read, and everyone in the\
+  Read lab, past and present, I've learned a lot\
+  from everyone.
+  %
+
+  Thank you to Professor Bardwell and Professor Shi for\
+  being on my committee.
+  %
+
+  Thank you to Ernest, Erica, Sharnnia, and everyone else from\
+  OAI, for both the fellowship and the opportunity to tutor our\
+  undergraduate student body.
+  %
+  
+}
+
+
+
+% Some custom commands for your list of publications and software.
+\newcommand{\mypubentry}[3]{
+  \begin{tabular*}{1\textwidth}{@{\extracolsep{\fill}}p{4.5in}r}
+    \textbf{#1} & \textbf{#2} \\ 
+    \multicolumn{2}{@{\extracolsep{\fill}}p{.95\textwidth}}{#3}\vspace{6pt} \\
+  \end{tabular*}
+}
+\newcommand{\mysoftentry}[3]{
+  \begin{tabular*}{1\textwidth}{@{\extracolsep{\fill}}lr}
+    \textbf{#1} & \url{#2} \\
+    \multicolumn{2}{@{\extracolsep{\fill}}p{.95\textwidth}}
+    {\emph{#3}}\vspace{-6pt} \\
+  \end{tabular*}
+}
+
+% The abstract should not be over 350 words, although that's
+% supposedly somewhat of a soft constraint.
+\thesisabstract {
+  For a cell to properly respond to external stimuli, it must translate the stimulus into\
+  a signal from the cell surface, to the inner cell machinery, such as the nucleus.
+  %
+  This signal transduction occurs by way of protein-protein reaction networks, which act\
+  as a set of relays via chemical reactions down to the cell's interior.
+  %
+  These relays, often called cascades, are seen everywhere in biology, and\
+  involve many proteins in intricate reaction networks; moreover, these reaction\
+  networks will often have many separate cascades within them, and to complicate\
+  things further, cascades can share components with other cascades, opening a\
+  possibility for cross-talk.
+  %
+  The concept of specificity has been used to quantify\
+  the relative strength of on-versus off-target interactions for individual protein-protein\
+  interactions.
+  %
+  The concept has also been extended to larger signaling cascades in order to measure
+  how much the system prefers the correct pathway over the incorrect pathway.
+  In this work, we study specificity in the context of discrete, stochastic chemical kinetics networks. 
+  %
+  %Despite this cross-talk, cascades are generally well insulated, i.e. a signal\
+  %from one cascade will not ``leak'' into another cascade, which must mean there\
+  %is an insulating mechanism in-place to stop unnecessary leaking.
+  %
+  We study two networks motifs, small commonly seen subportions of the network,\
+  known as the CB3 and bifan motif.
+  %
+  We use a variety of stochastic modeling techniques, including Master Equations,\
+  simulations, and numerical approximations.
+  %
+  We find that the fluctuations of specificity in a stochastic network system show\
+  qualitatively different behavior than the deterministic, mean-field specificity.
+  %
+  Such stochastic effects may contribute to cellular optimization of relative protein\
+  concentrations, by affecting the balance between strengthening in-pathway signals\
+  while minimizing cross-talk.
+  %
+  %In particular, we look at the stochastic behiavour of the system, and the\
+  %specificity of these motifs, a measure of how much the system prefers the\
+  %correct pathway over the incorrect pathway.
+  %
+  
+}
+
+
+%%% Local Variables: ***
+%%% mode: latex ***
+%%% TeX-master: "thesis.tex" ***
+%%% End: ***

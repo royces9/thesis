@@ -1,0 +1,331 @@
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+\section*{Methods}
+\addcontentsline{toc}{chapter}{Methods}
+%
+\subsection*{System}
+\addcontentsline{toc}{section}{System}
+%
+For this research, we look at two different systems, the CB3 and bifan motifs.
+%
+The CB3 motif is a simple protein-protein interaction network involving three proteins;\
+\ce{x1}, \ce{x2}, \ce{y2}; which can bind to make two different complexes, one on-target complex, \ce{x1x2};\
+and one off-target complex, \ce{x1y2}.
+%
+\ce{x2} and \ce{y2} do not make a complex together.
+%
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth/2]{figures/other/cb3_diagram.png}
+  \caption{Diagram of the reaction pathways for the CB3 Motif, image credit: Professor L. Bardwell}
+  \label{cb3_diagram}
+\end{figure}
+
+The reaction mechanism for the proteins is like so:
+%
+\smallskip
+\begin{equation}
+  \ce{
+    x1 + x2
+    <=>[k_{on}][k_{off_{xx}}]
+    x1x2
+  }\\
+  \ce{
+    x1 + y2
+    <=>[k_{on}][k_{off_{xy}}]
+    x1y2
+  }
+  \label{cb3_rxns}
+  \bigskip
+\end{equation}
+
+%
+The bifan motif is much like CB3 motif, but it adds another protein \ce{y1},\
+which can bind to the proteins \ce{y2} and \ce{x2}.
+%
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth/2]{figures/other/bifan_diagram.png}
+  \caption{Diagram of the reaction pathways for the bifan motif, image credit: Professor L. Bardwell}
+  \label{bifan_diagram}
+\end{figure}
+
+The bifan motif adds a reaction pathway for the \ce{y} proteins,\
+with two more possible reactions, in addition to the reactions from\
+the CB3 motif:
+%
+\smallskip
+\begin{equation}
+  \ce{
+    y1 + y2
+    <=>[k_{on}][k_{off_{yy}}]
+    y1y2
+  }\\
+  \ce{
+    y1 + x2
+    <=>[k_{on}][k_{off_{yx}}]
+    y1x2
+  }
+  \label{bifan_rxns}
+  \bigskip
+\end{equation}
+
+%Probably need a better name
+\subsubsection*{Notation}
+$N_a$ is defined to be copy number of the species $a$.
+%
+$\avgcopynum{a}$ is defined to be the average copy number\
+over during steady state.
+%
+$C_a$ is defined to be the concentration in $\mu M$ of $a$.
+%
+A subscript $0$ is denoted to mean the initial copy number or concentration of the\
+respective species, further, we start every system with 0 copy numbers of the complexes.
+%
+We must also define a volume for the system, $V$, with the assumption that chemical species are well-mixed within this volume.
+%
+For this study, we use an estimate of bacterial cell volume as the standard volume unit, defined to be\
+$V_b = 1.667 * 10^{-15} L$ \cite{valgepea, sasagawa}.
+%[ADD CITATION: CHECK BIONUMBERS.ORG].
+%%% check this later
+%https://bionumbers.hms.harvard.edu/bionumber.aspx?id=114921&ver=0&trm=volume+of+bacterial+cell&org=
+%%% 
+%
+That is, $V$ is expressed as the number of bacterial volumes contained in the total system volume.
+%
+i.e, for $V=2$, the volume of the system is $V_b * 2 = 3.334 * 10^{-15} L$.
+%
+The copy number can be converted to concentration in $\mu M$ and vice versa by:\
+\smallskip
+\begin{equation}
+  C_a = \frac{N_a}{V * V_b * N_A * 10^{-6}}
+  \label{conversion}
+\end{equation}
+%
+where $N_A$ is Avogadro's constant.
+%, and the $10^{-6}$ is a scaling factor from $M$ to $\mu M$.
+%
+
+\subsubsection*{Specificity}
+%
+In order to measure the system's preference for on or off-target complexes,\
+a variable called specificity is defined.
+%
+For the CB3, this is defined as:
+%
+\smallskip
+\begin{equation}
+  S_x = \frac{\copynum{x1x2}}{\copynum{x1y2}} = \frac{\conc{x1x2}}{\conc{x1y2}}
+  \label{sx_def}
+  \bigskip
+\end{equation}
+%
+And for the bifan, specificities can be defined as:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    &S_{\ce{x1}} = \frac{\copynum{x1x2}}{\copynum{x1y2}} = \frac{\conc{x1x2}}{\conc{x1y2}}\\
+    &S_{\ce{x2}} = \frac{\copynum{x1x2}}{\copynum{y1x2}} = \frac{\conc{x1x2}}{\conc{y1x2}}\\
+    &S_{\ce{y1}} = \frac{\copynum{y1y2}}{\copynum{y1x2}} = \frac{\conc{y1y2}}{\conc{y1x2}}\\
+    &S_{\ce{y2}} = \frac{\copynum{y1y2}}{\copynum{x1y2}} = \frac{\conc{y1y2}}{\conc{x1y2}}
+  \end{split}
+  \label{s_def}
+  \bigskip
+\end{equation}
+
+%
+The CB3 system only has one specificity, as there is\
+only one on-target complex and one off-target complex.
+%
+The bifan system has a total of two on-target complexes, and two off-target complexes;\
+this gives a total of 4 different specificities.
+%
+Each specificity measures the selectivity of a single protein.
+%
+In addition, CB3's \spec{x} and bifan's \spec{x1} both measure\
+the specificity of the \ce{x1} protein.
+%
+
+\subsubsection*{Rate constants}
+\addcontentsline{toc}{subsection}{Rate Constants}
+%
+Values typically seen in protein-protein interactions were used to model the systems \cite{sasagawa}:
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    k_{on} &= 1\, (\mu M^{-1}s^{-1})\\
+    k_{off_{xx}} &= 0.002\, (s^{-1})\\
+    k_{off_{xy}} &= 0.02\, (s^{-1})\\
+    k_{off_{yy}} &= 0.002\, (s^{-1})\\
+    k_{off_{yx}} &= 0.02\, (s^{-1})\\
+  \end{split}
+  \bigskip
+\end{equation}
+
+%
+When converting between deterministic kinetics in units of concentration, to stochastic kinetics\
+in units of individual molecules (copy numbers), one must convert units according to the reaction\
+order \cite{gillespie_exact_1977}.
+%
+For stochastic analysis, the deterministic $k_{on}$ with respect to concentration\
+can be converted to copy number according to:
+%
+\smallskip
+\begin{equation}
+  k_{on, stochastic} = \frac{k_{on, deterministic}} {V * V_b * N_A * 10^{-6}}\, (copy number^{-1}s^{-1})
+  \label{conversion_rate}
+  \bigskip
+\end{equation}
+%
+%Where $V$ is the volume of the system in $\mu L$, and $N_A$ is the Avogadro constant.
+%
+$k_{off}$ do not have to be converted because it is unimolecular and thus has\
+no dependence on concentration.
+
+\subsection*{Deterministic Model}
+From the reaction mechanisms above, Eq. \ref{cb3_rxns},\
+a system of differential equations can be created for the\
+CB3 system using mass action kinetics.
+%
+\smallskip
+\begin{equation}
+  \begin{split}
+    &\frac{d\conc{x1}}{dt} =\
+    -k_{on}\conc{x1}*\conc{x2} +\
+    k_{off_{xx}}\conc{x1x2} +\
+    -k_{on}\conc{x1}*\conc{y2} +\
+    k_{off_{xy}}\conc{x1y2}\\
+    %
+    &\frac{d\conc{x2}}{dt} =\
+    -k_{on}\conc{x1}*\conc{x2} +\
+    k_{off_{xx}}\conc{x1x2}\\
+    %
+    &\frac{d\conc{y2}}{dt} =\
+    -k_{on}\conc{x1}*\conc{y2} +\
+    k_{off_{xy}}\conc{x1y2}\\
+    %
+    &\frac{d\conc{x1x2}}{dt} =\
+    k_{on}\conc{x1}*\conc{x2} -\
+    k_{off_{xx}}\conc{x1x2}\\
+    %
+    &\frac{d\conc{x1y2}}{dt} =\
+    k_{on}\conc{x1}*\conc{y2} -\
+    k_{off_{xy}}\conc{x1y2}\\
+  \end{split}
+  \label{cb3_de}
+\end{equation}
+%
+
+Similarly, for the bifan using Eq. \ref{bifan_rxns}:
+%
+\bigskip
+\begin{equation}
+  \begin{split}
+    &\frac{d\conc{x1}}{dt} = -k_{on}\conc{x1}*\conc{x2} +\
+    k_{off_{xx}}\conc{x1x2} +\
+    -k_{on}\conc{x1}*\conc{y2} +\
+    k_{off_{xy}}\conc{x1y2}\\
+    %
+    &\frac{d\conc{x2}}{dt} =\
+    -k_{on}\conc{x1}*\conc{x2} +\
+    k_{off_{xx}}\conc{x1x2} +\
+    -k_{on}\conc{y1}*\conc{x2} +\
+    k_{off_{yx}}\conc{y1x2}\\
+    %
+    &\frac{d\conc{y1}}{dt} =\
+    -k_{on}\conc{y1}*\conc{y2} +\
+    k_{off_{yy}}\conc{y1y2} +\
+    -k_{on}\conc{y1}*\conc{x2} +\
+    k_{off_{yx}}\conc{y1x2}\\
+    %
+    &\frac{d\conc{y2}}{dt} =\
+    -k_{on}\conc{y1}*\conc{y2} +\
+    k_{off_{yy}}\conc{y1y2} +\
+    -k_{on}\conc{x1}*\conc{y2} +\
+    k_{off_{xy}}\conc{x1y2}\\
+    %
+    &\frac{d\conc{x1x2}}{dt} =\
+    k_{on}\conc{x1}*\conc{x2} -\
+    k_{off_{xx}}\conc{x1x2}\\
+    %
+    &\frac{d\conc{x1y2}}{dt} =\
+    k_{on}\conc{x1}*\conc{y2} -\
+    k_{off_{xy}}\conc{x1y2}\\
+    %
+    &\frac{d\conc{y1y2}}{dt} =\
+    k_{on}\conc{y1}*\conc{y2} -\
+    k_{off_{yy}}\conc{y1y2}\\
+    %
+    &\frac{d\conc{y1x2}}{dt} =\
+    k_{on}\conc{y1}*\conc{x2} -\
+    k_{off_{xy}}\conc{y1x2}
+  \end{split}
+  \bigskip
+\end{equation}
+%
+
+Because we are only interested in the steady state behaviour of the systems,\
+we make $\frac{d\conc{a}}{dt} = 0$.
+%
+
+\subsection*{Chemical Master Equation}
+\addcontentsline{toc}{section}{Chemical Master Equation}
+The mathematical framework of the network models is the discrete Chemical Master Equation (CME)
+~\cite{gillespie_exact_1977}
+, which gives the time-evolution of the probability to observe the system in a given state.
+In vector-matrix form,the CME can be written
+\bigskip
+\begin{equation}
+  \label{CME}
+  \frac{d\mathbf{p}(\mathbf{x},t)}{dt}=\mathbf{K}\mathbf{p}(\mathbf{x},t)
+\end{equation}
+%
+
+where $\mathbf{p}(\mathbf{x},t)$ is the probability over the system state-space ($\mathbf{x}$) at time $t$,\
+and $\mathbf{K}$ is the reaction rate-matrix containing stochastic reaction propensities\
+(diagonal elements $k_{jj}=-\sum_i k_{ij}$, i.e., columns sum to 0).
+%
+The stochastic propensities are closely related to the deterministic rates \cite{gillespie_exact_1977}, i.e., for the $x_1x_2$ complex formation, the propensity is given by $k_{on,stochastic}N_{x_1}N_{x_2}$.
+Eq. \ref{CME} assumes a well-mixed system of reacting species,\
+and assumes that the state-space described by $\mathbf{x}$\
+(containing molecular species numbers/configurations) is limited to ``reachable'' states,\
+for an enumeration of $N$ states of the system,\
+$\mathbf{K}\in \mathbb{R}^{N\times N}$.
+%
+The steady-state probability $\mathbf{\pi}(\mathbf{x})\equiv\mathbf{p}(\mathbf{x},t\rightarrow \infty)$ over $N$ states satisfies
+\bigskip
+\begin{equation}
+  \label{eq:KSS}
+  \mathbf{K}\mathbf{\pi}(\mathbf{x})=\mathbf{0}.
+\end{equation}
+%
+
+Thus, $\mathbf{\pi}(\mathbf{x})$ can be obtained from $\mathbf{K}$ as the normalized right-eigenvector corresponding to the zero-eigenvalue.
+
+\subsection*{Simulation and Software}
+\addcontentsline{toc}{section}{Simulation}
+Simulation of both the CB3 and bifan motif were done using BioNetGen-2.3.0 \cite{bionetgen}.
+%
+BioNetGen implements the Gillespie algorithm, an exact simulation algorithm\
+which completely takes into account the stochastic reaction kinetics\
+of a system \cite{gillespie_exact_1977}.
+%
+The CB3 motif was simulated with $\delta t = 1 s$, with $10^5$ steps.
+%
+The bifan was simulated with $\delta t = 10 s$, with $10^7$ steps.
+%
+Automation of simulations, and scripts to analyze and visualize data were made in MATLAB.
+%
+Furthermore, scripts to numerically solve the steady-state distribution for the CME as in\
+Eq. \ref{eq:KSS} were written in MATLAB. 
+%
+
+%%% Local Variables: ***
+%%% mode: latex ***
+%%% TeX-master: "thesis.tex" ***
+%%% End: ***

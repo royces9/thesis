@@ -1,0 +1,215 @@
+\section*{Discussion}
+\addcontentsline{toc}{chapter}{Discussion}
+%
+We find that width of the distribution for the specificity in both\
+the CB3 and bifan motif increases with the mean of the specificity.
+%
+For the CB3 motif, the deterministic specificity always decreases as a\
+function of concentration, suggesting that there are two conflicting needs\
+balanced by the cell: increased specificity (at lower concentrations) and\
+increased information transfer in terms of molecular targets (at higher concentrations).
+%
+The stochastic specificity adds another consideration to the picture, where the cell\
+balances high average specificity with high precision in specificity.
+%
+The precision, or the magnitude of fluctuations in specificity, are non-monotonic with\
+respect to protein copy number, which suggests another way for the cell to optimize\
+relative protein concentrations.
+%
+%In general, increases\
+%as $\totalcopy{x1}$ is decreased, but decreases again for very small\
+%$\totalcopy{x1}$; this non-monotonicity is also seen in \ce{x1x2}'s\
+%Fano factor.
+%
+In the bifan motif, the stochastic \spec{y1} and \spec{x2} exhibit\
+opposite behaviour from the CB3 motif, displaying increasing\
+behaviour as $\totalcopy{x1}$ is increased, but for \spec{y1} as\
+$\totalcopy{x1}$ is increased more, the specificity decreases.
+%
+\spec{x1} follows the same trends as the CB3 specificity,\
+with the same non-monotonic behaviour; \spec{y2} follows\
+the same shape as the CB3 specificity but does not display\
+a down turn at very low $\totalcopy{x1}$ copy number.
+%
+
+This non-monotocity suggests a certain tradeoff; if we assume\
+higher specificity is better for the cell because it increases information flow through a targeted pathway, the higher median specificity\
+may be beneficial to the cell. However, this increased specificity comes with increasing variance,\
+which may induce unwanted behaviour, either because the\
+fluctuations themselves are disruptive for information flow, or because the higher fluctuations\
+give rise to transient entry into lower-than-average specificity states, which could lead to spurious signaling.
+%
+On the other hand, lower specificity may be less beneficial to the cell,\
+but the fluctuations of the specificity are much lower, and so there is\
+much better control over the exact value of the specificity.
+%
+In addition, it has been shown that gene overexpression can be detrimental
+to the cell \cite{overexpression}, which suggests the cell may want to\
+avoid very wide distributions because the probability of being in a state\
+where a specific protein or gene is overexpressed is much higher, however,\
+this may come at the cost of not having a specificity high enough for the\
+protein to do any meaningful work. [I GOT A LITTLE CONFUSED HERE--if overexpression is detrimental, doesn't that mean the cell prefers wide distributions in specificity?]
+%
+
+\newcommand{\discone}{There exist different optimal parameters depending on what the cell requires}
+\subsubsection*{\discone}
+\addcontentsline{toc}{section}{\discone}
+%
+As discussed earlier, there are multiple different points of local maxima\
+within the CB3 motif, for example, from the parameter set in Fig. \ref{add_one},\
+the Gaussian approximation of the median reachs a maximum at about 20 copy numbers\
+of $\totalcopy{x1}$.
+%
+But this is not the only optimization criteria that we can look at for the CB3 motif.
+%
+A cell, for example, may want to maximize the \perc{10} percentile of the\
+specificity distribution.
+%
+In this scenario, with the parameter set from Fig. \ref{add_one}, the \perc{10}\
+percentile can be seen to be maximized at around ~30 copy number of $\totalcopy{x1}$.
+%
+Alternatively, if the width of the distribution needs to be minimized,\
+$\totalcopy{x1}$ would need to be maximized.
+%
+More generally, the stochastic specificity is interesting in that there\
+are many different points that can be optimized for some benefit to the cell.
+%
+This comes in contrast with the deterministic specificity, which is a strictly decreasing\
+function of $\totalcopy{x1}$; maximizing specificity is simply a matter of decreasing the amount of\
+$\totalcopy{x1}$.
+%
+
+The bifan also shows similar flexibility in the criteria for optimization criteria.
+%
+In addition to the points brought up for the CB3 motif, which can be applied to\
+$\totalcopy{x1}$, each of the other three specificities can also have their own\
+maximization criteria, for example \spec{y1} can be seen to have a local\
+maximum in the mean at ~500 $\totalcopy{x1}$ copy number in Fig. \ref{bifan_mean_sigma}.
+%
+Not seen in the CB3 motif is the ability for the bifan motif to optimize the system\
+for some or all of the specificities.
+%
+For example, in the same system, if the system were to attempt to maximumize\
+both \spec{x1} and \spec{y1}, the amount of $\totalcopy{x1}$ would be around ~100-200\
+copy number.
+%
+
+
+\newcommand{\disctwo}{The behaviour of the specificity is due to the complex's distribution}
+\subsubsection*{\disctwo}
+\addcontentsline{toc}{section}{\disctwo}
+%
+%how does the complex's distribution/behaviour relate to the specificity's
+%and how does that relate to the cell/biology
+From Fig. \ref{bifan_complex} and \ref{cb3_complex_error}, we show that the\
+specificity's distribution can be attributed to the values and distributions\
+of the individual complexes that make up the specificity.
+%
+The exact distributions of the complexes seem to be less important than\
+the simple fact that the distributions even exist in the first place.
+%
+Much of the variation in the specificity seems to rely more on the\
+denominator being much smaller, and thus, having small deviations\
+cause a larger effect on the ratio than the actual width of the\
+distributions of the complexes themselves.
+%
+However, the distributions of the complexes themselves are also of
+interest.
+%
+
+In Fig. \ref{bifan_complex}, we can see that the minimum value of all of the complexes\
+is maximized when the initial conditions are all balanced, in other words, at this point\
+is when the system will have the maximal number of each of the complexes.
+%
+Also at the same point, the product of the Fano factors of each of the complexes is also\
+maximized, which tells us that even for the complexes as a whole, more copies leads to\
+more noise in the system.
+%
+
+However, if we look at each individual complex, that is not the case.
+%
+For \ce{x1x2}, the amount of copies increases to near saturation,\
+but the Fano factor is very small.
+%
+This is due to $\totalcopy{x1}$ being in so much excess that it\
+will push the equilibrium towards creating more \ce{x1x2},\
+until it exhausts all of the free \ce{x2} protein.
+%
+The same can be said for \ce{x1y2}, however, the effect\
+is less pronounced because the affinity of \ce{x1} to \ce{y2}\
+is weaker than \ce{y1}'s affinity, so there will be some\
+competition for the \ce{y2} protein from both \ce{x1} and \ce{y1}.
+%
+
+
+\newcommand{\discthree}{For stochastic analysis, the specificity is an imperfect measure of the system's selectivity}
+\subsubsection*{\discthree}
+\addcontentsline{toc}{section}{\discthree}
+%
+The specificity measures the\
+system's preference for one pathway over another.
+And for deterministic analysis, the continuous nature of variables, lends well to
+the use of a ratio.
+%
+However, for stochastic analysis at small number regimes, the ratio is troublesome\
+because the copy numbers of some elements in the system can reach zero,\
+which results in infinite/NaN values.
+%
+This is not to say that the specificity is wrong; it has been shown that\
+the specificity is a useful representation of systems\
+(\cite{ultrasensitive, komarova, mathematical}) and from\
+Fig. \ref{marsaglia_good} and \ref{add_one}, the specificity\
+calculated from simulation data and the normal approximation both give\
+similar results when not in a low copy number regime, which shows that\
+the behaviour we see is real, but we may be missing some part of the\
+story by changing zero denominators to one.
+%
+This may be the case because by doing so, we are basically treating\
+the system as being in the same state whether it has one or zero\
+copies of the off-target complexes.
+%
+
+The region that is undefined for the CB3 motif is fairly small, from Fig.\
+\ref{cb3_raw_spec}, the \perc{90} percentile is defined for \ce{x1}\
+copy numbers greater than 20, the median is even lower, at approximately 10\
+copy number.
+%
+The specificity works well for the CB3 motif, however, the bifan motif is more\
+complicated because of the addition of three more specificities.
+%
+From Fig. \ref{bifan_raw_plot}, the \perc{90} percentile of \spec{x1} and \spec{y2}\
+is defined for values larger than approximately 50 copy numbers of $\copynum{x1}$, but\
+\spec{y1} and \spec{x2} is not defined for $\copynum{x1}$ larger than 250.
+%
+This gives a small range of 50 to 250 copy numbers of $\copynum{x1}$ where all of\
+the specifities are both defined.
+%
+We can see that there is a large region where the specificity is not defined,\
+so another measure of the system's selectivity must be used to correctly\
+quantify regions where the ratio is undefined.
+%
+
+\subsubsection*{Future Work}
+%addcontentsline{toc}{section}{Future Work}
+%
+For the analysis of the system, we studied the steady state distribution of\
+the specificity in a closed system with no other reactions happening in the\
+volume of our system.
+%
+It would be beneficial for future study to construct another variable to replace\
+the specificity, because the specificity is difficult to handle with low copy\
+numbers there may be another measure that can give insight into regimes where\
+there specificity is either not defined, or must be altered to be defined.
+%
+In addition, we know that various insulation mechanisms exist to promote network\
+specificity (\cite{ultrasensitive, komarova, mathematical}), and that these will\
+also have a non-negligible effect on the system's selectivity.
+%
+Other effects, such as having an open system, may induce interesting behaviour not\
+seen in closed systems, such as multi-stability.
+
+
+%%% Local Variables: ***
+%%% mode: latex ***
+%%% TeX-master: ``thesis.tex'' ***
+%%% End: *** 
